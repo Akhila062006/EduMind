@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic Explainer | EduMind</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4ff;
+            color: #302b63;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            background: #302b63;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #514a9d;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f5f6ff;
+            border-radius: 10px;
+            line-height: 1.7;
+        }
+
+        .error {
+            color: #d93025;
+            margin-top: 15px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #302b63;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📚 AI Topic Explainer</h1>
+
+    <p class="subtitle">
+        Understand difficult topics with simple AI explanations.
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <textarea
+            name="topic"
+            placeholder="Enter a topic... Example: Artificial Intelligence"
+            required>{{ topic }}</textarea>
+
+        <button type="submit">Explain My Topic</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if explanation %}
+        <div class="result">
+            <h2>Explanation</h2>
+            <p>{{ explanation|linebreaksbr }}</p>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'dashboard' %}" class="back">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>
